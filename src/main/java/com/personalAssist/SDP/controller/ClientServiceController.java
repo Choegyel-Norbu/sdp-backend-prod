@@ -77,6 +77,15 @@ public class ClientServiceController {
 		}
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
 	}
+	
+	@GetMapping("clientSet/{userId}")
+	public ResponseEntity<?> clientSet(@PathVariable Long userId){
+		boolean clientSet = clientService.clientSet(userId);
+		if(clientSet) {
+			return ResponseEntity.ok().body(clientSet);
+		}
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(clientSet);
+	}
 
 	@PutMapping("/updateStatus/{id}")
 	public ResponseEntity<?> updateServiceStatus(@PathVariable Long id, @RequestParam("status") String status) {

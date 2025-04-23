@@ -69,7 +69,7 @@ public class ClientServiceImpl implements ClientService {
 		service.setServiceName(dto.getServiceName());
 		service.setRate(dto.getRate());
 		withPriority(service, dto.getPriority());
-		service.setStatus(associateStatus(service));
+		service.setStatus(associateStatus());
 		serviceFrequency(service, dto.getRepeatFrequency());
 		service.setServiceType(dto.getServiceType());
 
@@ -116,7 +116,7 @@ public class ClientServiceImpl implements ClientService {
 		return serviceRequestRepository.save(service) != null;
 	}
 
-	private ServiceStatus associateStatus(ServiceRequest service) {
+	private ServiceStatus associateStatus() {
 		return serviceStatusRepository.fetchPending();
 	}
 
@@ -176,6 +176,11 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public List<ServiceRequestProjection> findAllServicesForClientId(Long id) {
 		return serviceRequestRepository.findAllServicesForClientId(id);
+	}
+
+	@Override
+	public boolean clientSet(Long userId) {
+		return clientRepository.clientSet(userId) != null;
 	}
 
 }
